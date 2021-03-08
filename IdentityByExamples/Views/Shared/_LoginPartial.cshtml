@@ -1,0 +1,35 @@
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+@*ADDED 16  Register li in Partial view _LoginPartial.cshtml*@
+@*ADDED 16  Login li in Partial view _LoginPartial.cshtml*@
+@* ADDED 36 Logout li in Partial view _LoginPartial.cshtml *@
+ @*inject the SignInManager and UserManager classes 
+by using the View Dependency Injection Technique 
+and then just check if our user is signed in. 
+If it is, we show a welcome message and the Logout button.*@
+<ul class="navbar-nav">
+    @if (SignInManager.IsSignedIn(User))//ADDED 36 if else
+    {
+        <li class="nav-item">
+            <a class="nav-link text-dark" asp-controller="Home" asp-action="Index"
+               title="Welcome">Welcome @User.Identity.Name!</a>
+        </li>
+        <li class="nav-item">
+            <form class="form-inline" asp-controller="Account" asp-action="Logout">
+                <button type="submit" class="nav-link btn btn-link text-info">Logout</button>
+            </form>
+        </li>
+    }
+    else
+    {
+        <li class="nav-item">
+            <a class="nav-link text-dark" asp-controller="Account"
+               asp-action="Login">Login</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link text-dark" asp-controller="Account"
+               asp-action="Register">Register</a>
+        </li>
+    }
+</ul> 
